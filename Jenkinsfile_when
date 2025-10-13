@@ -19,8 +19,8 @@ pipeline {
 
             when {
                 expression { 
-                    return params.BRNACH == 'main' && 
-                    return params.BRNACH != 'test'    
+                    return params.BRANCH == 'main' && 
+                    return params.BRANCH != 'test'    
                 }
             }
 
@@ -35,12 +35,12 @@ pipeline {
         stage('BUILD_PROD') {
 
             when {
-                expression { return params.BRNACH == 'production' }
+                expression { return params.BRANCH == 'production' }
             }
 
             steps {
                 sh '''
-                    echo "SHELL ----> BRNACH: ${BRNACH}"
+                    echo "SHELL ----> BRANCH: ${BRANCH}"
                 '''
             }
         }
