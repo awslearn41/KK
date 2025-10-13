@@ -52,13 +52,6 @@ pipeline {
                         sleep 5
                     }
                 }
-
-                stage('TEST2') {
-                    steps {
-                        echo "This is TEST2 Firefox test stage"
-                        sleep 5
-                    }
-                }
             }
         }
     }
