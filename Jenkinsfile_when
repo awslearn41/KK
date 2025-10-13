@@ -1,7 +1,6 @@
 pipeline {
     agent any
-    
-   
+
     parameters {
         choice(name: 'BRANCH', choices: ['main','production'], description: 'Choose the environment to deploy ?')
     }
@@ -16,26 +15,21 @@ pipeline {
         }
 
         stage('BUILD_MAIN') {
-
             when {
-                expression { 
-                   params.BRANCH == 'main' && 
-                     
-                }
+                expression { params.BRANCH == 'main' }
             }
 
             steps {
                 sh '''
-                    echo "SHELL ----> BRNACH: ${BRNACH}"
+                    echo "SHELL ----> BRANCH: ${BRANCH}"
                     sudo apt update
                 '''
             }
         }
 
         stage('BUILD_PROD') {
-
             when {
-                expression { return params.BRANCH == 'production' }
+                expression { params.BRANCH == 'production' }  // Removed 'return'
             }
 
             steps {
