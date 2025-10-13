@@ -2,11 +2,11 @@ pipeline {
     agent any
 
     parameters {
-        choice(name: 'BRANCH', choices: ['main','production'], description: 'Choose the environment to deploy ?')
+        choice(name: 'BRANCH', choices: ['main','production'], description: 'Choose the environment to deploy')
     }
 
     stages {
-        stage('CHECKOUT') {
+        stage('Checkout') {
             steps {
                 git branch: params.BRANCH,
                     credentialsId: 'github_id',
@@ -14,28 +14,32 @@ pipeline {
             }
         }
 
-        stage('BUILD_MAIN') {
-            when {
-                expression { params.BRANCH == 'main' }
-            }
+        stage('Build & Deploy') {
+            parallel {
 
-            steps {
-                sh '''
-                    echo "SHELL ----> BRANCH: ${BRANCH}"
-                    sudo apt update
-                '''
-            }
-        }
+                stage('BUILD_MAIN') {
+                    when {
+                        expression { params.BRANCH == 'main' }
+                    }
+                    steps {
+                        sh '''
+                            echo "SHELL ----> BRANCH: ${BRANCH}"
+                            sudo apt update
+                        '''
+                    }
+                }
 
-        stage('BUILD_PROD') {
-            when {
-                expression { params.BRANCH == 'production' }  // Removed 'return'
-            }
-
-            steps {
-                sh '''
-                    echo "SHELL ----> BRANCH: ${BRANCH}"
-                '''
+                stage('BUILD_PROD') {
+                    when {
+                        expression { params.BRANCH == 'production' }
+                    }
+                    steps {
+                        sh '''
+                            echo "SHELL ----> BRANCH: ${BRANCH}"
+                            # Add production deployment commands here
+                        '''
+                    }
+                }
             }
         }
     }
