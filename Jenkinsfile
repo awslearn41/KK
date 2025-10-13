@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('CHECKOUT') {
             steps {
-                echo "This is Checkout stage"
+              checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'Git', url: 'https://github.com/awslearn41/KK.git']])
             }
         }
 
@@ -26,4 +26,3 @@ pipeline {
             }
         }
     }
-}
