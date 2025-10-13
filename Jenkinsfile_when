@@ -19,8 +19,8 @@ pipeline {
 
             when {
                 expression { 
-                    return params.BRANCH == 'main' && 
-                    return params.BRANCH != 'test'    
+                   params.BRANCH == 'main' && 
+                   params.BRANCH != 'test'    
                 }
             }
 
