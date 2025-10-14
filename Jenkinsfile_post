@@ -32,7 +32,7 @@ pipeline {
                 expression {
                     return dbStatus == 'yes' &&  
                 }
-            }
+            
             steps {
                echo "Run when STAGE1 is successful"
             }
