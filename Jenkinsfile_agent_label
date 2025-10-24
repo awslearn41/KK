@@ -5,7 +5,7 @@ pipeline {
         stage('CHECKOUT') {
             
             agent {
-                label 'master'
+                label 'slave2'
             } 
 
             steps {
