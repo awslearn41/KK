@@ -1,0 +1,11 @@
+pipeline {
+    agent { label 'master' }
+
+    stages {
+        stage('BUILD') {
+            steps {
+                echo "Runs only on Master node"
+            }
+        }
+    }
+}
